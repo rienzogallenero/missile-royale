@@ -48,8 +48,8 @@ public class ChatClient {
     private String getServerAddress() {
         return JOptionPane.showInputDialog(
             frame,
-            "Please ChatServer's IP address:",
-            "Welcome to Game Chat",
+            "Please input ChatServer's IP address:",
+            "Welcome to Harambe Chat",
             JOptionPane.QUESTION_MESSAGE);
     }
 
