@@ -38,4 +38,45 @@ public class ChatClient {
             }
         });
     }
+	
+	// Ask for server's IP address
+    private String getServerAddress() {
+        return JOptionPane.showInputDialog(
+            frame,
+            "Please input server's IP address:",
+            "Welcome to Game Chat",
+            JOptionPane.QUESTION_MESSAGE);
+    }
+
+    // Prompt username
+    private String getName() {
+        return JOptionPane.showInputDialog(
+            frame,
+            "Choose a username:",
+            "Username selection",
+            JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private void run() throws IOException {
+
+        String serverAddress = getServerAddress();
+        Socket socket = new Socket(serverAddress, 9001);
+
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        out = new PrintWriter(socket.getOutputStream(), true);
+
+        while (true) {
+
+            String line = in.readLine();
+
+            if (line.startsWith("SUBMITNAME")) {
+                out.println(getName());
+            } else if (line.startsWith("NAMEACCEPTED")) {
+                textField.setEditable(true);
+            } else if (line.startsWith("MESSAGE")) {
+                messageArea.append(line.substring(8) + "\n");
+            }
+
+        }
+    }
 }
