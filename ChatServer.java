@@ -19,7 +19,7 @@ public class ChatServer {
 
     // Main method
     public static void main(String[] args) throws Exception {
-        System.out.println("This chat server is operational.");
+        System.out.println("HarambeChat - commencing...");
         ServerSocket listener = new ServerSocket(PORT);
 
         try {

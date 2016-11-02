@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
+import javax.swing.BorderFactory;
 
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -11,21 +12,25 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.awt.event.ActionEvent;
+import java.awt.Insets;
 
 public class ChatClient {
 
     BufferedReader in;
     PrintWriter out;
-    JFrame frame = new JFrame("Game Chat");
+    JFrame frame = new JFrame("GitsOutForHarambe");
     JTextField textField = new JTextField(40);
-    JTextArea messageArea = new JTextArea(8, 40);
+    JTextArea messageArea = new JTextArea(20, 40);
 
     public ChatClient() {
 
         // Graphical User Interface
         textField.setEditable(false);
+        textField.setBorder(BorderFactory.createCompoundBorder(textField.getBorder(), BorderFactory.createEmptyBorder(5, 5, 5, 5)));
         messageArea.setEditable(false);
-        frame.getContentPane().add(textField, "North");
+        messageArea.setMargin(new Insets(10,10,10,10));
+        messageArea.append("Welcome to Harambe Chat! Say hi! #GitsOut\n\n");
+        frame.getContentPane().add(textField, "South");
         frame.getContentPane().add(new JScrollPane(messageArea), "Center");
         frame.pack();
 
@@ -43,7 +48,7 @@ public class ChatClient {
     private String getServerAddress() {
         return JOptionPane.showInputDialog(
             frame,
-            "Please input server's IP address:",
+            "Please ChatServer's IP address:",
             "Welcome to Game Chat",
             JOptionPane.QUESTION_MESSAGE);
     }
