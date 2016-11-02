@@ -41,5 +41,56 @@ public class ChatServer {
         public Handler(Socket socket) {
             this.socket = socket;
         }
+
+        public void run() {
+        	try {
+        		input = new BufferedReader(new InputStreamReader(
+        			socket.getInputStream()));
+        		output = new PrintWriter(socket.getOutputStream(), true);
+
+        		while (true) {
+        			output.println("NAME:");
+        			name = input.readLine();
+
+        			if (name == NULL) {
+        				return;
+        			}
+
+        			synchronized (names) {
+        				if (!names.contains(name)) {
+        					names.add(name);
+        					break;
+        				}
+        			}
+
+        			output.println("NAME ACCEPTED.");
+        			writers.add(output);
+
+        			while (true) {
+        				String message = input.readLine();
+        				if (message == NULL) {
+        					return;
+        				}
+        				for (PrintWriter writer : writers) {
+        					writer.println("MESSAGE(" + name + "): " + message);
+        				}
+        			}
+        		}
+        	} catch (IOException e) {
+        		System.out.println(e);
+        	} finally () {
+        		if (name != NULL) {
+        			names.remove(name);
+        		}
+
+        		if (output != NULL) {
+        			writers.remove(out);
+        		}
+
+        		try {
+        			socket.close();
+        		} catch (IOException e) {}
+        	}
+        }
     }
 }
