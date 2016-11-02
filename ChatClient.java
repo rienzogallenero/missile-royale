@@ -20,4 +20,22 @@ public class ChatClient {
     JTextField textField = new JTextField(40);
     JTextArea messageArea = new JTextArea(8, 40);
 
+    public ChatClient() {
+
+        // Graphical User Interface
+        textField.setEditable(false);
+        messageArea.setEditable(false);
+        frame.getContentPane().add(textField, "North");
+        frame.getContentPane().add(new JScrollPane(messageArea), "Center");
+        frame.pack();
+
+        // New listeners
+        textField.addActionListener(new ActionListener() {
+            // Submit on enter
+            public void actionPerformed(ActionEvent e) {
+                out.println(textField.getText());
+                textField.setText("");
+            }
+        });
+    }
 }
