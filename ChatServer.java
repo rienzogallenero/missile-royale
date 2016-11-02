@@ -17,4 +17,17 @@ public class ChatServer {
     // PrintWriters of all users
     private static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
     
+    // Main method
+    public static void main(String[] args) throws Exception {
+        System.out.println("This chat server is operational.");
+        ServerSocket listener = new ServerSocket(PORT);
+
+        try {
+            while (true) {
+                new Handler(listener.accept()).start();
+            }
+        } finally {
+            listener.close();
+        }
+    }
 }
