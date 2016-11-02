@@ -16,7 +16,7 @@ public class ChatServer {
 
     // PrintWriters of all users
     private static HashSet<PrintWriter> writers = new HashSet<PrintWriter>();
-    
+
     // Main method
     public static void main(String[] args) throws Exception {
         System.out.println("This chat server is operational.");
@@ -29,5 +29,12 @@ public class ChatServer {
         } finally {
             listener.close();
         }
+    }
+
+    private static class Handler extends Thread {
+        private String name;
+        private Socket socket;
+        private BufferedReader in;
+        private PrintWriter out;
     }
 }
