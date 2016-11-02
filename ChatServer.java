@@ -36,5 +36,10 @@ public class ChatServer {
         private Socket socket;
         private BufferedReader in;
         private PrintWriter out;
+
+        // Handler constructor
+        public Handler(Socket socket) {
+            this.socket = socket;
+        }
     }
 }
